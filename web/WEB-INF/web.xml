@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <servlet>
+        <servlet-name>AdicionarAluno</servlet-name>
+        <servlet-class>Controller.AdicionarAluno</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoverAluno</servlet-name>
+        <servlet-class>Controller.RemoverAluno</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConsultarAluno</servlet-name>
+        <servlet-class>Controller.ConsultarAluno</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdicionarAluno</servlet-name>
+        <url-pattern>/AdicionarAluno</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoverAluno</servlet-name>
+        <url-pattern>/RemoverAluno</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConsultarAluno</servlet-name>
+        <url-pattern>/ConsultarAluno</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
