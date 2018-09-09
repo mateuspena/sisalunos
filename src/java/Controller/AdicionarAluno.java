@@ -31,9 +31,11 @@ public class AdicionarAluno extends HttpServlet {
   protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String matricula  = request.getParameter("matricula");
     String nome       = request.getParameter("nome");
-    float nota        = Float.parseFloat( request.getParameter("nota") );
+    float nota1        = Float.parseFloat( request.getParameter("nota1") );
+    float nota2        = Float.parseFloat( request.getParameter("nota2") );
+    float nota3        = Float.parseFloat( request.getParameter("nota3") );
     
-    Aluno a = new Aluno(matricula, nome, nota);
+    Aluno a = new Aluno(matricula, nome, nota1, nota2, nota3);
     
     if ( a.adicionar() )
       request.setAttribute("status", 1);

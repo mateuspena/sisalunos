@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="Model.Aluno"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -80,8 +81,13 @@
                 
                 <% if ( status == 1 ) { %>
                 <% Aluno a = (Aluno) request.getAttribute("aluno"); %>
+                <% DecimalFormat df = new DecimalFormat("0.00"); %>
+                <% float n1 = a.getNota()[0].getValor(); %>
+                <% float n2 = a.getNota()[1].getValor(); %>
+                <% float n3 = a.getNota()[2].getValor(); %>
+                <% float media = (n1+n2+n3)/3; %>
                 <tr>
-                  <td colspan="2" id="result"><strong><i>A nota de <%=a.getNome()%> é <%=a.getNota().getValor()%>.</i></strong></td>
+                  <td colspan="2" id="result"><strong><i><%=a.getNome()%> tirou: <%=n1%>, <%=n2%> e <%=n3%>.<br>Sua média é: <%=df.format(media) %>.</i></strong></td>
                 </tr>
                 <% } %>
               </table>

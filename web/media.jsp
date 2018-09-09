@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Model.Aluno"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -8,7 +9,7 @@
   float media=0f;
   if ( lstAluno.size() > 0 ) {
     for (int i=0; i< lstAluno.size(); i++)
-      media = media + lstAluno.get(i).getNota().getValor();
+      media = media + lstAluno.get(i).getNota()[0].getValor();
     media = media / lstAluno.size();
   }
 %>
@@ -55,7 +56,8 @@
               <tbody>
                 <tr>
                   <td>Média Geral da Turma</td>
-                  <td><%=media %></td>
+                  <% DecimalFormat df = new DecimalFormat("0.00"); %>
+                  <td><%=df.format(media) %></td>
                 </tr>
               </tbody>
             </table>
@@ -76,7 +78,7 @@
                 <% if ( lstAluno.size() > 0 ) for (int i=0; i< lstAluno.size(); i++) { %>
                 <tr>
                   <td><%=lstAluno.get(i).getNome() %></td>
-                  <td><%=lstAluno.get(i).getNota().getValor() %></td>
+                  <td><%=lstAluno.get(i).getNota()[0].getValor() %></td>
                 </tr>
                 <% } else { %>
                 <tr>

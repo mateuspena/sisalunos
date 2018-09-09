@@ -3,9 +3,9 @@ package Model;
 import java.util.ArrayList;
 
 public class Aluno {
-  private String  matricula;
-  private String  nome;
-  private Nota    nota;
+  private String    matricula;
+  private String    nome;
+  private Nota[]    nota;
 
   
   public boolean adicionar() {
@@ -29,23 +29,46 @@ public class Aluno {
    
   
   
-  public Aluno(String matricula, String nome, Nota nota) {
-    this.matricula = matricula;
-    this.nome = nome;
-    this.nota = nota;
+  public Aluno(String matricula, String nome, Nota[] nota) {
+    this.matricula  = matricula;
+    this.nome       = nome;
+    this.nota       = nota;
   }
   
-  public Aluno(String matricula, String nome, float notaValor) {
-    this(matricula, nome, new Nota(notaValor) );
+  /**
+   * Usado pela módulo Adicionar.
+   * @param matricula String.
+   * @param nome String.
+   * @param nota1 Float.
+   * @param nota2 Float.
+   * @param nota3 Float.
+   */
+  public Aluno(String matricula, String nome, float nota1, float nota2, float nota3) {
+    this(matricula, nome, null);
+    this.nota       = new Nota[3];
+    this.nota[0]    = new Nota(nota1);
+    this.nota[1]    = new Nota(nota2);
+    this.nota[2]    = new Nota(nota3);
   }
   
+  /**
+   * Usando pelos módulos Remover e Consultar.
+   * @param matricula String.
+   */
   public Aluno(String matricula) {
-    this.matricula = matricula;
+    this.matricula  = matricula;
+    this.nota       = new Nota[3];
   }
   
-  public Aluno(String nome, float nota) {
-    this.nome = nome;
-    this.nota = new Nota(nota);
+  /**
+   * Usando pelo módulo Média.
+   * @param nome String.
+   * @param media Float.
+   */
+  public Aluno(String nome, float media) {
+    this.nome     = nome;
+    this.nota     = new Nota[1];
+    this.nota[0]  = new Nota(media);
   }
   
   
@@ -67,12 +90,18 @@ public class Aluno {
     this.nome = nome;
   }
 
-  public Nota getNota() {
+  public Nota[] getNota() {
     return nota;
   }
 
-  public void setNota(Nota nota) {
+  public void setNota(Nota[] nota) {
     this.nota = nota;
+  }
+  
+  public void setNota(Nota nota, int index) {
+    this.nota[index] = nota;
+    
+    System.out.println("\n\n>> " + nota.getValor() + " : " + index);
   }
   
 }

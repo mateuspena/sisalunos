@@ -22,19 +22,20 @@ public class AlunoDAO {
     ArrayList<Aluno>    lst     = new ArrayList<>();
     
     try {
-      stmt = conn.prepareStatement(""
-              + "SELECT "
-              + " aluno.alu_nome as 'nome', nota.not_nota as 'nota' "
-              + "FROM aluno "
-              + " INNER JOIN nota ON aluno.alu_matricula = nota.alu_matricula "
-              + "ORDER BY nota.not_nota");
+      stmt = conn.prepareStatement("" +
+              "SELECT " +
+              " aluno.alu_nome as 'nome', round(avg(nota.not_nota),2) as 'media' " +
+              " FROM aluno " +
+              "   INNER JOIN nota ON aluno.alu_matricula = nota.alu_matricula " +
+              "GROUP BY aluno.alu_matricula " +
+              "ORDER BY aluno.alu_nome");
       
       rs = stmt.executeQuery();
       while ( rs.next() ) {
-        String nome = rs.getString("nome");
-        float nota = rs.getFloat("nota");
+        String nome   = rs.getString("nome");
+        float media   = rs.getFloat("media");
         
-        Aluno a = new Aluno(nome, nota);
+        Aluno a = new Aluno(nome, media);
         
         lst.add(a);
       }
@@ -65,9 +66,9 @@ public class AlunoDAO {
       stmt.setString(1, this.aluno.getMatricula() );
             
       rs = stmt.executeQuery();
-      if ( rs.next() ) {
+      for ( int i=0; rs.next(); i++ ) {
         this.aluno.setNome( rs.getString("nome") );
-        this.aluno.setNota( new Nota(rs.getInt("codigo"), rs.getFloat("nota")) );
+        this.aluno.setNota( new Nota(rs.getInt("codigo"), rs.getFloat("nota")), i );
         result = true;
       }
     }
@@ -124,17 +125,31 @@ public class AlunoDAO {
     try {
       conn.setAutoCommit(false);
       
+      // Cadastrar um novo aluno.
       stmt = conn.prepareStatement("INSERT INTO aluno VALUES (?, ?)");
       stmt.setString(1, this.aluno.getMatricula() );
       stmt.setString(2, this.aluno.getNome() );
       boolean r1 = stmt.executeUpdate() > 0;
       
+      // Cadastrar nota 1.
       stmt = conn.prepareStatement("INSERT INTO nota (alu_matricula, not_nota) VALUES (?, ?)");
       stmt.setString(1, this.aluno.getMatricula() );
-      stmt.setFloat(2, this.aluno.getNota().getValor() );
+      stmt.setFloat(2, this.aluno.getNota()[0].getValor() );
       boolean r2 = stmt.executeUpdate() > 0;
       
-      if ( r1 && r2 ) {
+      // Cadastrar nota 2.
+      stmt = conn.prepareStatement("INSERT INTO nota (alu_matricula, not_nota) VALUES (?, ?)");
+      stmt.setString(1, this.aluno.getMatricula() );
+      stmt.setFloat(2, this.aluno.getNota()[1].getValor() );
+      boolean r3 = stmt.executeUpdate() > 0;
+      
+      // Cadastrar nota 3.
+      stmt = conn.prepareStatement("INSERT INTO nota (alu_matricula, not_nota) VALUES (?, ?)");
+      stmt.setString(1, this.aluno.getMatricula() );
+      stmt.setFloat(2, this.aluno.getNota()[2].getValor() );
+      boolean r4 = stmt.executeUpdate() > 0;
+      
+      if ( r1 && r2 && r3 && r4 ) {
         result = true;
         conn.commit();
       }

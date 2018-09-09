@@ -87,12 +87,42 @@
                 </tr>
 
                 <tr>
-                  <td id="field"><strong>Nota:</strong></td>
+                  <td id="field"><strong>Nota 1:</strong></td>
                   <td>
                     <input 
                       onfocusout="checkNotaField(this)" 
                       type="number" 
-                      name="nota"
+                      name="nota1"
+                      value="0" 
+                      step=".01" 
+                      min="0" 
+                      max="10"
+                    enabled>
+                  </td>
+                </tr>
+                
+                <tr>
+                  <td id="field"><strong>Nota 2:</strong></td>
+                  <td>
+                    <input 
+                      onfocusout="checkNotaField(this)" 
+                      type="number" 
+                      name="nota2"
+                      value="0" 
+                      step=".01" 
+                      min="0" 
+                      max="10"
+                    enabled>
+                  </td>
+                </tr>
+                
+                <tr>
+                  <td id="field"><strong>Nota 3:</strong></td>
+                  <td>
+                    <input 
+                      onfocusout="checkNotaField(this)" 
+                      type="number" 
+                      name="nota3"
                       value="0" 
                       step=".01" 
                       min="0" 
